@@ -9,7 +9,7 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
 ### Step 1: Setup and Initialization
 1. **Clone the Repository**: Clone the provided repository to get the static website files.
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/glennbechdevops/terraform-s3-website.git
    ```
 2. **Initialize a Terraform Project**: Create and initialize a new directory for the Terraform project.
    ```bash
@@ -64,7 +64,7 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
 ### Step 4: Upload Files to S3 Bucket
 1. **AWS CLI**: Use the AWS CLI to upload the website files to the S3 bucket.
    ```bash
-   aws s3 sync <local-website-folder> s3://<bucket-name> --acl public-read
+   aws s3 sync website s3://<bucket-name> --acl public-read
    ```
 
 ### Step 5: Accessing the Website
