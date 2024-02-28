@@ -53,6 +53,13 @@ module "website" {
    terraform apply -var 'bucket_name=<unique-bucket-name>'
    ```
 
+If you get an error message saying 
+```
+│ Error: putting S3 Bucket (bech-final) Policy: operation error S3: PutBucketPolicy, https response error StatusCode: 403, RequestID: J1K4KCMHADJMZMV1, HostID: dUSuqDOOUzLsUCp2OVqZmFKnYX4tsQdEwaxZiQZe76/uRhPTuKILLw7PFjtW5J/z4T6G7f1uduM=, api error AccessDenied: Access Denied```
+```
+
+Retry the operation. Ask the instructor why this happens if you have time and are interested :) 
+
 ### Step 4: Upload Files to S3 Bucket
 1. **AWS CLI**: Use the AWS CLI to upload the website files to the S3 bucket.
    ```bash
