@@ -1,11 +1,12 @@
 # Static Website Hosting with Terraform and AWS
 
 ## Objective
-Deploy a static website on AWS S3 using Terraform. This exercise will cover using modules from the Terraform Registry, managing resources with the AWS CLI, and utilizing variables and outputs in Terraform.
+Deploy a static website on AWS S3 using Terraform. This exercise will cover using 
+modules from the Terraform Registry, managing resources with the AWS CLI, and utilizing variables and outputs in Terraform.
 
 ## Exercise Steps
 
-### Step 0; Log into your Cloud 9 environment and familarise yourself with the IDE
+### Step 0; Log into your Cloud 9 environment and familiarize yourself with the IDE
 
 This guide will walk you through the process of accessing AWS Cloud9, a cloud-based 
 integrated development environment (IDE) that lets you write, run, and debug your code with just a browser.
@@ -47,7 +48,7 @@ Go to the Terminal, this is where you will perform most actions
 
 ### Step 2: Terraform Configuration
 
-Important! Make this file in your terraform-s3-website folder, NOT the root folder. 
+It is important to create the file within your terraform-s3-website folder, not in the root folder.
 
 1. **Create a `main.tf` File**: Define the infrastructure for hosting the static website in an S3 bucket.
 2. **Use a Module for S3 Website**: Incorporate a module for creating an S3 bucket configured for website hosting.
@@ -88,12 +89,13 @@ Replace <unique-bucket-name> with for example your name, initials or something t
    terraform apply -var 'bucket_name=<unique-bucket-name>'
    ```
 
-If you get an error message saying 
+If you get an error message saying something like 
 ```
 │ Error: putting S3 Bucket (bech-final) Policy: operation error S3: PutBucketPolicy, https response error StatusCode: 403, RequestID: J1K4KCMHADJMZMV1, HostID: dUSuqDOOUzLsUCp2OVqZmFKnYX4tsQdEwaxZiQZe76/uRhPTuKILLw7PFjtW5J/z4T6G7f1uduM=, api error AccessDenied: Access Denied```
 ```
 
 Retry the operation. Ask the instructor why this happens if you have time and are interested :) 
+
 
 ### Step 4: Upload Files to S3 Bucket
 1. **AWS CLI**: Use the AWS CLI to upload the website files to the S3 bucket.
@@ -101,7 +103,11 @@ Retry the operation. Ask the instructor why this happens if you have time and ar
    aws s3 sync s3_demo_website s3://<bucket-name> 
    ```
 
-### Step 5: Accessing the Website
+### Step 5: Inspect the bucket in the AWS Console
+1. **AWS CLI**: Use the AWS Console UI to look at objects and bucket properties. 
+
+
+### Step 6: Accessing the Website
 - **Retrieve Website URL**: Use Terraform to get the S3 bucket website endpoint.
   ```bash
   terraform output s3_website_url
