@@ -18,6 +18,9 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
    this will create a terraform-s3-website folder on your file systme.
 
 ### Step 2: Terraform Configuration
+
+Important! Make this file in your terraform-s3-website folder, NOT the root folder. 
+
 1. **Create a `main.tf` File**: Define the infrastructure for hosting the static website in an S3 bucket.
 2. **Use a Module for S3 Website**: Incorporate a module for creating an S3 bucket configured for website hosting.
 
