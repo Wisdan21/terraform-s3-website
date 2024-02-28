@@ -15,7 +15,7 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
    git clone https://github.com/glennbechdevops/terraform-s3-website.git .
    cd terraform-s3-website
    ```
-   this will create a terraform-s3-website folder on your file systme.
+   this will create a terraform-s3-website folder on your file system. This will also be your working directory from now on. 
 
 ### Step 2: Terraform Configuration
 
