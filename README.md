@@ -110,7 +110,7 @@ Retry the operation. Ask the instructor why this happens if you have time and ar
 ### Step 6: Accessing the Website
 - **Retrieve Website URL**: Use Terraform to get the S3 bucket website endpoint.
   ```bash
-  terraform output s3_website_url
+  terraform output module.website.s3_website_url
   ```
 - Access the website through the provided URL.
 
