@@ -1,4 +1,3 @@
-
 # Static Website Hosting with Terraform and AWS
 
 ## Objective
@@ -6,40 +5,29 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
 
 ## Exercise Steps
 
+### Step 0; Log into your Cloud 9 environment and familarise yourself with the IDE
+
+1. Go to the Terminal, this is where you will perform most actions 
+
 ### Step 1: Setup and Initialization
-1. **Clone the Repository**: Clone the provided repository to get the static website files.
+1. **Clone the Repository**: Clone the provided repository to get the static website files. Run this command in the Cloud 9 terminal. 
    ```bash
-   git clone https://github.com/glennbechdevops/terraform-s3-website.git
+   git clone https://github.com/glennbechdevops/terraform-s3-website.git .
+   cd terraform-s3-website
    ```
-2. **Initialize a Terraform Project**: Create and initialize a new directory for the Terraform project.
-   ```bash
-   mkdir terraform-static-website
-   cd terraform-static-website
-   terraform init
-   ```
+   this will create a terraform-s3-website folder on your file systme.
 
 ### Step 2: Terraform Configuration
 1. **Create a `main.tf` File**: Define the infrastructure for hosting the static website in an S3 bucket.
 2. **Use a Module for S3 Website**: Incorporate a module for creating an S3 bucket configured for website hosting.
-   ```hcl
-   module "s3_bucket" {
-     source  = "terraform-aws-modules/s3-bucket/aws"
-     version = "~> 2.0"
 
-     bucket = var.bucket_name
-     acl    = "public-read"
+```hcl
+module "website" {
+   source = "github.com/glennbechdevops/s3-website-module/"
+   bucket_name = var.bucket_name
+}
+```
 
-     website = {
-       index_document = "index.html"
-       error_document = "error.html"
-     }
-
-     tags = {
-       Name        = "Static Website"
-       Environment = "Learning"
-     }
-   }
-   ```
 3. **Variables File**: Define necessary variables in a `variables.tf` file.
    ```hcl
    variable "bucket_name" {
@@ -58,19 +46,20 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
 1. **Initialize Terraform** and download the necessary modules.
 2. **Plan and Apply**: Execute the infrastructure deployment.
    ```bash
+   terraform init
    terraform apply -var 'bucket_name=<unique-bucket-name>'
    ```
 
 ### Step 4: Upload Files to S3 Bucket
 1. **AWS CLI**: Use the AWS CLI to upload the website files to the S3 bucket.
    ```bash
-   aws s3 sync website s3://<bucket-name> --acl public-read
+   aws s3 sync s3_demo_website s3://<bucket-name> 
    ```
 
 ### Step 5: Accessing the Website
 - **Retrieve Website URL**: Use Terraform to get the S3 bucket website endpoint.
   ```bash
-  terraform output website_url
+  terraform output s3_website_url
   ```
 - Access the website through the provided URL.
 

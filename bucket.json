@@ -1,0 +1,21 @@
+{
+  "Resources": {
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketName": "glennbech-example-change",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Development"
+          },
+          {
+            "Key": "Project",
+            "Value": "ExampleProject"
+          }
+        ]
+      }
+    }
+  }
+}
