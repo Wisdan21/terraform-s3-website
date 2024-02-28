@@ -7,10 +7,38 @@ Deploy a static website on AWS S3 using Terraform. This exercise will cover usin
 
 ### Step 0; Log into your Cloud 9 environment and familarise yourself with the IDE
 
-1. Go to the Terminal, this is where you will perform most actions 
+This guide will walk you through the process of accessing AWS Cloud9, a cloud-based 
+integrated development environment (IDE) that lets you write, run, and debug your code with just a browser.
+
+## Sign in to the AWS Management Console
+
+- **Navigate to** the [AWS Management Console](https://aws.amazon.com/console/).
+- **Sign in** with your AWS account credentials.
+
+##  Access the Cloud9 Service
+
+- Once signed in, locate the **Services** dropdown menu at the top of the console.
+- **Search for** Cloud9 by typing "Cloud9" into the search bar or navigating through the services list.
+- **Select** AWS Cloud9 from the results to open the Cloud
+
+##  Open Your Existing Cloud9 Environment
+
+- Within the AWS Cloud9 dashboard, you'll see a list of your existing Cloud9 environments.
+- **Find the environment** you wish to work with from the list. These are environments you've previously created.
+- **Click on the name** of the environment you want to open. This action will take you to the Cloud9 IDE where you can start working on your projects.
+
+##  Start Working
+
+- Once your Cloud9 environment opens, you'll be in the IDE where you can begin coding, running, and debugging your projects.
+- The environment comes with a terminal, a code editor, and other tools pre-configured for your development needs.
+
+Remember, Cloud9 environments are cloud-based, so you can access your development environment from any computer with internet
+access, allowing for a flexible and portable coding experience.
+
+Go to the Terminal, this is where you will perform most actions 
 
 ### Step 1: Setup and Initialization
-1. **Clone the Repository**: Clone the provided repository to get the static website files. Run this command in the Cloud 9 terminal. 
+1. **Clone the Repository**: Clone the provided repository to get the static website files. Run these commands in the Cloud 9 terminal. 
    ```bash
    git clone https://github.com/glennbechdevops/terraform-s3-website.git .
    cd terraform-s3-website
@@ -26,10 +54,13 @@ Important! Make this file in your terraform-s3-website folder, NOT the root fold
 
 ```hcl
 module "website" {
-   source = "github.com/glennbechdevops/s3-website-module/"
+   source = "github.com/glennbechdevops/s3-website-module?ref=1.0.0"
    bucket_name = var.bucket_name
 }
 ```
+
+* This will use the Terraform module located in GitHub here https://github.com/glennbechdevops/s3-website-module
+* Also notice that you're using a specific version of the module 
 
 3. **Variables File**: Define necessary variables in a `variables.tf` file.
    ```hcl
@@ -46,6 +77,10 @@ module "website" {
    ```
 
 ### Step 3: Deployment
+
+In this step, you will see that you can provide values for variables on the Terraform command line.
+Replace <unique-bucket-name> with for example your name, initials or something that is unique
+
 1. **Initialize Terraform** and download the necessary modules.
 2. **Plan and Apply**: Execute the infrastructure deployment.
    ```bash
