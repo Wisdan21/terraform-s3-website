@@ -73,7 +73,7 @@ module "website" {
 4. **Outputs File**: Create an `outputs.tf` file to extract the domain name of the bucket.
    ```hcl
    output "website_url" {
-     value = module.s3_bucket.website_endpoint
+     value = module.website.s3_website_url
    }
    ```
 
