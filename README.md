@@ -73,5 +73,9 @@ Retry the operation. Ask the instructor why this happens if you have time and ar
   ```
 - Access the website through the provided URL.
 
+### Manipulate HTML and / or CSS files 
+
+You can try to modify the CSS and HTML files and re-run the sync command to change how it looks.
+
 ## Conclusion
 This exercise demonstrates deploying and managing web resources on the cloud using Terraform and AWS CLI.
