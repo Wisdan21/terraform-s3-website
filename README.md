@@ -162,6 +162,36 @@ Terraform vil nå vise at det ikke er nødvendig med endringer, siden bucket-nav
 
 **Fordelen med variabler**: Du kan nå enkelt endre bucket-navnet uten å redigere koden, og gjenbruke samme konfigurasjon for flere miljøer.
 
+### Steg 8: Bruk default-verdier for variabler
+
+I stedet for å måtte oppgi verdier på kommandolinjen hver gang, kan du sette default-verdier for variabler. Dette gjør det enklere å jobbe med Terraform i daglig bruk.
+
+1. **Oppdater variabelen med en default-verdi**:
+
+```hcl
+variable "bucket_name" {
+  description = "The name of the S3 bucket"
+  type        = string
+  default     = "mitt-default-bucket-navn"  # Erstatt med ditt eget unike navn
+}
+```
+
+2. **Apply uten å spesifisere variabel**:
+
+```bash
+terraform apply
+```
+
+Terraform vil nå bruke default-verdien uten at du må oppgi den på kommandolinjen.
+
+3. **Overstyre default-verdien ved behov**:
+
+```bash
+terraform apply -var 'bucket_name=et-annet-bucket-navn'
+```
+
+**Best practice**: Bruk default-verdier for variabler som sjelden endres, men la kritiske verdier (som bucket-navn i produksjon) være uten default for å sikre at de blir eksplisitt satt.
+
 ### Bonusoppgave: Modifiser nettsiden
 
 Prøv å endre HTML- og CSS-filene i `s3_demo_website`-mappen, og kjør sync-kommandoen på nytt for å se endringene:
