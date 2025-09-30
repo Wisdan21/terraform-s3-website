@@ -29,24 +29,15 @@ Nå skal du bygge opp Terraform-konfigurasjonen fra bunnen av. Du vil lære om d
 
 1. **Opprett `main.tf`** i rotmappen av prosjektet
 
-2. **Legg til en variabel for bucket-navnet** øverst i `main.tf`:
-
-```hcl
-variable "bucket_name" {
-  description = "The name of the S3 bucket"
-  type        = string
-}
-```
-
-3. **Opprett S3 bucket-ressursen**:
+2. **Opprett S3 bucket-ressursen** med et hardkodet bucket-navn (erstatt `<unikt-bucket-navn>` med ditt eget unike navn, f.eks. dine initialer eller studentnummer):
 
 ```hcl
 resource "aws_s3_bucket" "website" {
-  bucket = var.bucket_name
+  bucket = "<unikt-bucket-navn>"
 }
 ```
 
-4. **Konfigurer S3 bucket for website hosting**:
+3. **Konfigurer S3 bucket for website hosting**:
 
 ```hcl
 resource "aws_s3_bucket_website_configuration" "website" {
@@ -62,7 +53,7 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 ```
 
-5. **Åpne bucketen for offentlig tilgang** (nødvendig for static websites):
+4. **Åpne bucketen for offentlig tilgang** (nødvendig for static websites):
 
 ```hcl
 resource "aws_s3_bucket_public_access_block" "website" {
@@ -75,7 +66,7 @@ resource "aws_s3_bucket_public_access_block" "website" {
 }
 ```
 
-6. **Legg til en bucket policy som tillater offentlig lesing**:
+5. **Legg til en bucket policy som tillater offentlig lesing**:
 
 ```hcl
 resource "aws_s3_bucket_policy" "website" {
@@ -98,7 +89,7 @@ resource "aws_s3_bucket_policy" "website" {
 }
 ```
 
-7. **Legg til en output for å få URL-en til nettsiden**:
+6. **Legg til en output for å få URL-en til nettsiden**:
 
 ```hcl
 output "s3_website_url" {
@@ -109,11 +100,11 @@ output "s3_website_url" {
 
 ### Steg 3: Deploy infrastrukturen
 
-Erstatt `<unikt-bucket-navn>` med ditt eget unike navn (f.eks. dine initialer eller studentnummer).
+Nå er du klar til å deploye infrastrukturen. Sørg for at du har erstattet `<unikt-bucket-navn>` i `main.tf` med ditt eget unike navn.
 
 ```bash
 terraform init
-terraform apply -var 'bucket_name=<unikt-bucket-navn>'
+terraform apply
 ```
 
 **Merk**: Hvis du får en feilmelding om `AccessDenied` ved `PutBucketPolicy`, prøv kommandoen på nytt. Spør instruktør hvis du er nysgjerrig på hvorfor dette skjer.
@@ -139,6 +130,37 @@ terraform output s3_website_url
 ```
 
 Åpne URL-en i nettleseren for å se din statiske nettside.
+
+### Steg 7: Refaktorer til å bruke variabler
+
+Nå som du har fått infrastrukturen til å fungere med hardkodet bucket-navn, skal vi gjøre konfigurasjonen mer fleksibel ved å introdusere variabler.
+
+1. **Legg til en variabel for bucket-navnet** øverst i `main.tf`:
+
+```hcl
+variable "bucket_name" {
+  description = "The name of the S3 bucket"
+  type        = string
+}
+```
+
+2. **Erstatt det hardkodede bucket-navnet** i S3 bucket-ressursen:
+
+```hcl
+resource "aws_s3_bucket" "website" {
+  bucket = var.bucket_name  # Endret fra hardkodet verdi
+}
+```
+
+3. **Apply endringene** med variabelen:
+
+```bash
+terraform apply -var 'bucket_name=<unikt-bucket-navn>'
+```
+
+Terraform vil nå vise at det ikke er nødvendig med endringer, siden bucket-navnet er det samme.
+
+**Fordelen med variabler**: Du kan nå enkelt endre bucket-navnet uten å redigere koden, og gjenbruke samme konfigurasjon for flere miljøer.
 
 ### Bonusoppgave: Modifiser nettsiden
 
