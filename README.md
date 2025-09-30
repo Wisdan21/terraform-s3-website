@@ -23,34 +23,87 @@ ls
 
 Du skal se filene fra dette repositoriet, inkludert mappen `s3_demo_website`. 
 
-### Steg 2: Terraform-konfigurasjon
+### Steg 2: Opprett Terraform-konfigurasjon
 
-1. **Opprett `main.tf`**: Definer infrastrukturen for å hoste nettsiden i en S3 bucket.
+Nå skal du bygge opp Terraform-konfigurasjonen fra bunnen av. Du vil lære om de ulike AWS S3-ressursene som trengs for å hoste en statisk nettside.
 
-```hcl
-module "website" {
-   source = "github.com/glennbechdevops/s3-website-module?ref=1.1.0"
-   bucket_name = var.bucket_name
-}
-```
+1. **Opprett `main.tf`** i rotmappen av prosjektet
 
-Modulen er hentet fra: https://github.com/glennbechdevops/s3-website-module
-Merk at vi bruker en spesifikk versjon (1.1.0) av modulen.
-
-2. **Opprett `variables.tf`**: Definer nødvendige variabler.
+2. **Legg til en variabel for bucket-navnet** øverst i `main.tf`:
 
 ```hcl
 variable "bucket_name" {
-  description = "The name of the bucket"
+  description = "The name of the S3 bucket"
   type        = string
 }
 ```
 
-3. **Opprett `outputs.tf`**: Hent ut bucket-domenenavnet.
+3. **Opprett S3 bucket-ressursen**:
 
 ```hcl
-output "website_url" {
-  value = module.website.s3_website_url
+resource "aws_s3_bucket" "website" {
+  bucket = var.bucket_name
+}
+```
+
+4. **Konfigurer S3 bucket for website hosting**:
+
+```hcl
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.website.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+}
+```
+
+5. **Åpne bucketen for offentlig tilgang** (nødvendig for static websites):
+
+```hcl
+resource "aws_s3_bucket_public_access_block" "website" {
+  bucket = aws_s3_bucket.website.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+```
+
+6. **Legg til en bucket policy som tillater offentlig lesing**:
+
+```hcl
+resource "aws_s3_bucket_policy" "website" {
+  bucket = aws_s3_bucket.website.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.website.arn}/*"
+      }
+    ]
+  })
+
+  depends_on = [aws_s3_bucket_public_access_block.website]
+}
+```
+
+7. **Legg til en output for å få URL-en til nettsiden**:
+
+```hcl
+output "s3_website_url" {
+  value = "http://${aws_s3_bucket.website.bucket}.s3-website.${aws_s3_bucket.website.region}.amazonaws.com"
+  description = "URL for the S3 hosted website"
 }
 ```
 
@@ -82,7 +135,7 @@ Gå til AWS Console og se på objekter og bucket-egenskaper for å forstå hvord
 Hent URL-en til nettsiden:
 
 ```bash
-terraform output website_url
+terraform output s3_website_url
 ```
 
 Åpne URL-en i nettleseren for å se din statiske nettside.
