@@ -33,7 +33,7 @@ Nå skal du bygge opp Terraform-konfigurasjonen fra bunnen av. Du vil lære om d
 
 ```hcl
 resource "aws_s3_bucket" "website" {
-  bucket = "<unikt-bucket-navn>"
+  bucket = "unikt-bucket-navn"
 }
 ```
 
@@ -100,7 +100,7 @@ output "s3_website_url" {
 
 ### Steg 3: Deploy infrastrukturen
 
-Nå er du klar til å deploye infrastrukturen. Sørg for at du har erstattet `<unikt-bucket-navn>` i `main.tf` med ditt eget unike navn.
+Nå er du klar til å deploye infrastrukturen. Sørg for at du har erstattet `unikt-bucket-navn` i `main.tf` med ditt eget unike navn.
 
 ```bash
 terraform init
@@ -114,7 +114,7 @@ terraform apply
 Bruk AWS CLI for å laste opp nettsidefilene til S3 bucketen:
 
 ```bash
-aws s3 sync s3_demo_website s3://<unikt-bucket-navn>
+aws s3 sync s3_demo_website s3://unikt-bucket-navn
 ```
 
 ### Steg 5: Inspiser bucketen i AWS Console
@@ -155,7 +155,7 @@ resource "aws_s3_bucket" "website" {
 3. **Apply endringene** med variabelen:
 
 ```bash
-terraform apply -var 'bucket_name=<unikt-bucket-navn>'
+terraform apply -var 'bucket_name=unikt-bucket-navn'
 ```
 
 Terraform vil nå vise at det ikke er nødvendig med endringer, siden bucket-navnet er det samme.
@@ -197,7 +197,7 @@ terraform apply -var 'bucket_name=et-annet-bucket-navn'
 Prøv å endre HTML- og CSS-filene i `s3_demo_website`-mappen, og kjør sync-kommandoen på nytt for å se endringene:
 
 ```bash
-aws s3 sync s3_demo_website s3://<unikt-bucket-navn>
+aws s3 sync s3_demo_website s3://unikt-bucket-navn
 ```
 
 ## Oppsummering
