@@ -32,6 +32,7 @@ Nå skal du bygge opp Terraform-konfigurasjonen fra bunnen av. Du vil lære om d
 1. **Opprett `main.tf`** i rotmappen av prosjektet
 
 2. **Opprett S3 bucket-ressursen** med et hardkodet bucket-navn (erstatt `<unikt-bucket-navn>` med ditt eget unike navn, f.eks. dine initialer eller studentnummer):
+Det er ganske strenge regler for navn for buckets! https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
 
 ```hcl
 resource "aws_s3_bucket" "website" {
