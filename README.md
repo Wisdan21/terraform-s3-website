@@ -124,7 +124,7 @@ aws s3 sync s3_demo_website s3://unikt-bucket-navn
 
 ### Steg 5: Inspiser bucketen i AWS Console
 
-Gå til AWS Console og se på objekter og bucket-egenskaper for å forstå hvordan alt er satt opp.
+Gå til AWS Console, og tjenesten S3, og se på objekter og bucket-egenskaper for å forstå hvordan alt er satt opp.
 
 ### Steg 6: Åpne nettsiden
 
