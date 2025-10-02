@@ -189,8 +189,6 @@ terraform apply
 
 Terraform vil nå bruke default-verdien uten at du må oppgi den på kommandolinjen.
 
-```
-
 **Best practice**: Bruk default-verdier for variabler som sjelden endres, men la kritiske verdier (som bucket-navn i produksjon) være uten default for å sikre at de blir eksplisitt satt.
 
 ### Bonusoppgave: Modifiser nettsiden
