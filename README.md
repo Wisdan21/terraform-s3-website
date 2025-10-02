@@ -111,8 +111,10 @@ terraform apply
 ```
 
 **Merk**: Hvis du får en feilmelding om `AccessDenied` ved `PutBucketPolicy`, prøv kommandoen på nytt. Spør instruktør hvis du er nysgjerrig på hvorfor dette skjer.
+**Viktig**: Pass på at du ikke får feilneldinger etter apply før du går videre.
 
 ### Steg 4: Last opp filer til S3
+
 
 Bruk AWS CLI for å laste opp nettsidefilene til S3 bucketen:
 
