@@ -160,7 +160,7 @@ resource "aws_s3_bucket" "website" {
 3. **Apply endringene** med variabelen:
 
 ```bash
-terraform apply -var 'bucket_name=unikt-bucket-navn'
+terraform apply -var 'bucket_name=ditt_bucket_navn'
 ```
 
 Terraform vil nå vise at det ikke er nødvendig med endringer, siden bucket-navnet er det samme.
@@ -177,7 +177,7 @@ I stedet for å måtte oppgi verdier på kommandolinjen hver gang, kan du sette 
 variable "bucket_name" {
   description = "The name of the S3 bucket"
   type        = string
-  default     = "mitt-default-bucket-navn"  # Erstatt med ditt eget unike navn
+  default     = "ditt-bucket-navn"  # Erstatt med ditt eget unike navn
 }
 ```
 
