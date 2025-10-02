@@ -11,6 +11,8 @@ Deploy en statisk nettside på AWS S3 ved hjelp av Terraform. Denne øvelsen dek
 2. **Åpne Codespace**: Klikk på "Code" → "Codespaces" → "Create codespace on main"
 3. **Vent på at Codespace starter**: Dette kan ta et par minutter første gang
 4. **Terminalvindu**: Du vil utføre de fleste kommandoer i terminalen som åpner seg nederst i Codespace
+5. **AWS Credentials**. Kjør `aws configure` og legg inn AWS aksessnøkler. 
+
 
 ### Steg 1: Verifiser miljøet
 
